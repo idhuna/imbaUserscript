@@ -10,7 +10,7 @@
 
 (async function() {
     // Window intercept
-    console.log('Script Window Open...');
+    console.log('Script Auto Alien...');
     var winOpen = window.open;
     var snd = new Audio('https://www.soundjay.com/button/button-6.wav');
     window.open = function() {
@@ -20,7 +20,6 @@
     };
 
     // Auto Alien
-    console.log('Script Auto Alien ...')
     setTimeout(_ => {
         document.querySelector("#acc-name > a").click();
     },2000);
