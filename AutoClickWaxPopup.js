@@ -24,13 +24,17 @@
         node.textContent = count;
         count += 1;
     }, 1000)
-    let intervalTime = 200;
-    setInterval(_ => {
+
+    let counter = 200;
+    const dynamicInterval = () => {
         if(document.querySelector("div.react-ripples > button")?.disabled == false){
             document.querySelector("div.react-ripples > button").click();
-            intervalTime = 5000;
+            counter = 5000;
         }
-    },intervalTime)
+        setTimeout(dynamicInterval, counter);
+    }
+    setTimeout(dynamicInterval, counter);
+
     setTimeout(_ => {
         document.querySelector("#root > div > section > div.page-inner-container > div > button").click();
     },90*1000);
