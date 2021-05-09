@@ -24,7 +24,7 @@
     setTimeout(_ => {
         document.querySelector("#acc-name > a").click();
     },2000);
-    let parentNode = document.querySelectorAll('span.text-white')[4];
+    let parentNode = [...document.querySelectorAll('span.text-white')].find(e => e.textContent.includes("Status mining")) || document.querySelector('span.text-white');
     let node = document.createElement("span");
     node.style.color = 'yellow';
     node.style.marginLeft = "1rem";
