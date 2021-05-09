@@ -1,11 +1,19 @@
+// ==UserScript==
+// @name         Auto Alien
+// @namespace    Auto Alien
+// @version       1
+// @match        https://auto-alien.com/*
+// @grant        none
+// ==/UserScript==
+
 (async function() {
     // Window intercept
     console.log('Script Window Open...');
     var winOpen = window.open;
     var snd = new Audio('https://www.soundjay.com/button/button-6.wav');
     window.open = function() {
-				var win = winOpen.apply(this, arguments);
-				snd.play();
+        var win = winOpen.apply(this, arguments);
+        snd.play();
         return win;
     };
 
