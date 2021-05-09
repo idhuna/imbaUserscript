@@ -3,8 +3,8 @@
 // @namespace    Auto Alien
 // @version       1
 // @match        https://auto-alien.com/*
-// @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/autoAlien.js
-// @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/autoAlien.js
+// @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoAlien.js
+// @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoAlien.js
 // @grant        none
 // ==/UserScript==
 
