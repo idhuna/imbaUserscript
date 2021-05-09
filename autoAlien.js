@@ -61,7 +61,7 @@
                 stopReloadTimeout();
                 document.querySelector("#show-status").scrollIntoView(false);
                 scrollBy(0,10);
-                createReloadTimeout(30*60*1000);
+                createReloadTimeout(30*60000);
                 let re = /\d*/;
                 let str = document.querySelector("#show-status").textContent;
                 let found = str.match(re);
