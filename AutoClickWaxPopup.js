@@ -3,7 +3,8 @@
 // @namespace    Auto Click WaxPopup
 // @version      1
 // @match        https://all-access.wax.io/cloud-wallet/signing/*
-// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
+// @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
 // @grant        none
 // ==/UserScript==
 
