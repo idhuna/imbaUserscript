@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      1.01
+// @version      1.2
 // @match        https://auto-alien.com/*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
 // @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
@@ -12,10 +12,13 @@
     // Window intercept
     console.log('Script Start Auto Alien ...')
     var winOpen = window.open;
-    var snd = new Audio('https://www.soundjay.com/button/button-6.wav');
+    const tuud = () => {
+        var tuud = new Audio('https://www.soundjay.com/button/button-6.wav');
+        tuud.play();
+    }
     window.open = function() {
         var win = winOpen.apply(this, arguments);
-        snd.play();
+        tuud();
         return win;
     };
 
@@ -39,6 +42,9 @@
     // Timeout
     var myTimeout;
     function createReloadTimeout(millis) {
+        var tuud1 = new Audio('https://www.soundjay.com/button/button-4.wav');
+        tuud1.play();
+        console.log('tuud1');
         myTimeout = setTimeout(_ => {location.reload(true)},millis);
     }
     function stopReloadTimeout() {
