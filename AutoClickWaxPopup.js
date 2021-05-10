@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Click WaxPopup
 // @namespace    Auto Click WaxPopup
-// @version      1.1
+// @version      1.2
 // @match        https://all-access.wax.io/cloud-wallet/signing/*
 // @match        https://all-access.wax.io/cloud-wallet/login/*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
@@ -29,11 +29,11 @@
     let counter = 200;
     const dynamicInterval = () => {
         if(document.querySelector("div.react-ripples > button")?.disabled == false){
-            if(document.querySelector("input[type='checkbox']").checked == false){
-                document.querySelector("input[type='checkbox']").click();
-            }
             document.querySelector("div.react-ripples > button").click();
             counter = 5000;
+        }
+        if(document.querySelector("input[type='checkbox']")?.checked == false){
+            document.querySelector("input[type='checkbox']").click();
         }
         setTimeout(dynamicInterval, counter);
     }
@@ -43,7 +43,7 @@
         if(document.querySelector("#cf-error-details > header > h1 > span:nth-child(2)").textContent == 1020){
             console.log('Error');
             window.open("https://all-access.wax.io/cloud-wallet/login/","_error");
-            window.close();
+            setTimeout(_ => window.close(),2000);
         }
     },5000);
     // Reload after 90 Sec
