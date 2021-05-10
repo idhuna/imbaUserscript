@@ -39,7 +39,7 @@
     // Timeout
     var myTimeout;
     function createReloadTimeout(millis) {
-        myTimeout = myTimeout = setTimeout(_ => {location.reload(true)},millis);
+        myTimeout = setTimeout(_ => {location.reload(true)},millis);
     }
     function stopReloadTimeout() {
         clearTimeout(myTimeout);
@@ -62,6 +62,9 @@
                 stopReloadTimeout();
                 document.querySelector("#show-status").scrollIntoView(false);
                 scrollBy(0,10);
+                if(document.querySelector("#show-status").textContent == "Check out Recaptcha. "){
+                    createReloadTimeout(3*60000);
+                }
                 createReloadTimeout(30*60000);
                 let re = /\d*/;
                 let str = document.querySelector("#show-status").textContent;
