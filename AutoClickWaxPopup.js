@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         Auto Click WaxPopup
 // @namespace    Auto Click WaxPopup
-// @version      1
+// @version      1.01
 // @match        https://all-access.wax.io/cloud-wallet/signing/*
+// @match        https://all-access.wax.io/cloud-wallet/login/*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
 // @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
 // @grant        none
@@ -34,7 +35,12 @@
         setTimeout(dynamicInterval, counter);
     }
     setTimeout(dynamicInterval, counter);
-
+    setTimeout(_ => {
+        if(document.querySelector("#cf-error-details > header > h1 > span:nth-child(2)").textContent == 1020){
+            window.open("https://all-access.wax.io/cloud-wallet/login/","_error");
+            window.close();
+        }
+    },25000);
     setTimeout(_ => {
         document.querySelector("#root > div > section > div.page-inner-container > div > button").click();
     },90*1000);
