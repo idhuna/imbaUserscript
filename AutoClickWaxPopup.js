@@ -40,7 +40,7 @@
             window.open("https://all-access.wax.io/cloud-wallet/login/","_error");
             window.close();
         }
-    },25000);
+    },5000);
     setTimeout(_ => {
         document.querySelector("#root > div > section > div.page-inner-container > div > button").click();
     },90*1000);
