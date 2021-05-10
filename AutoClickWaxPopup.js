@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Click WaxPopup
 // @namespace    Auto Click WaxPopup
-// @version      1.01
+// @version      1.1
 // @match        https://all-access.wax.io/cloud-wallet/signing/*
 // @match        https://all-access.wax.io/cloud-wallet/login/*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
@@ -25,16 +25,20 @@
         node.textContent = count;
         count += 1;
     }, 1000)
-
+    // Auto Accept Signing for WAX.io
     let counter = 200;
     const dynamicInterval = () => {
         if(document.querySelector("div.react-ripples > button")?.disabled == false){
+            if(document.querySelector("input[type='checkbox']").checked == false){
+                document.querySelector("input[type='checkbox']").click();
+            }
             document.querySelector("div.react-ripples > button").click();
             counter = 5000;
         }
         setTimeout(dynamicInterval, counter);
     }
     setTimeout(dynamicInterval, counter);
+    // Check Error 1020
     setTimeout(_ => {
         if(document.querySelector("#cf-error-details > header > h1 > span:nth-child(2)").textContent == 1020){
             console.log('Error');
@@ -42,6 +46,7 @@
             window.close();
         }
     },5000);
+    // Reload after 90 Sec
     setTimeout(_ => {
         document.querySelector("#root > div > section > div.page-inner-container > div > button").click();
     },90*1000);
