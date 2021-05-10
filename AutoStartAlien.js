@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      1.2
+// @version      1.3
 // @match        https://auto-alien.com/*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
 // @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
@@ -41,14 +41,23 @@
 
     // Timeout
     var myTimeout;
+    var myTimeout1;
+    var tuud1 = new Audio('https://www.soundjay.com/button/button-4.wav');
     function createReloadTimeout(millis) {
-        var tuud1 = new Audio('https://www.soundjay.com/button/button-4.wav');
-        tuud1.play();
-        console.log('tuud1');
-        myTimeout = setTimeout(_ => {location.reload(true)},millis);
+        myTimeout = setTimeout(_ => {
+            setTimeout(_ => {location.reload(true)},2000);
+        },millis);
+    }
+    function createReloadTimeout1(millis) {
+        myTimeout1 = setTimeout(_ => {
+            tuud1.play();
+            console.log(millis);
+            setTimeout(_ => {location.reload(true)},2000);
+        },millis);
     }
     function stopReloadTimeout() {
         clearTimeout(myTimeout);
+        clearTimeout(myTimeout1);
     }
 
     const newTime = (milli = "") => {
@@ -69,7 +78,7 @@
                 document.querySelector("#show-status").scrollIntoView(false);
                 scrollBy(0,10);
                 if(document.querySelector("#show-status").textContent == "Check out Recaptcha. "){
-                    createReloadTimeout(3*60000);
+                    createReloadTimeout1(3*60000);
                 }
                 createReloadTimeout(30*60000);
                 let re = /\d*/;
