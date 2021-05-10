@@ -37,6 +37,7 @@
     setTimeout(dynamicInterval, counter);
     setTimeout(_ => {
         if(document.querySelector("#cf-error-details > header > h1 > span:nth-child(2)").textContent == 1020){
+            console.log('Error');
             window.open("https://all-access.wax.io/cloud-wallet/login/","_error");
             window.close();
         }
