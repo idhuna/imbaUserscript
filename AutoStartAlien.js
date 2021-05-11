@@ -88,7 +88,6 @@
                 if(parseInt(found[0]) > 0){
                     let mineDelay = parseInt(found[0])*1000;
                     node.textContent = newTime(new Date().getTime() + mineDelay);
-                    await delay (mineDelay);
                 }
             }
         });
