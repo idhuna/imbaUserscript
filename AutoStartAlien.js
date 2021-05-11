@@ -82,7 +82,7 @@
                     createReloadTimeout1(3*60000);
                 }
                 createReloadTimeout(30*60000);
-                let re = /\d*/;
+                let re = /\d+/;
                 let str = document.querySelector("#show-status").textContent;
                 let found = str.match(re) || 0;
                 if(parseInt(found[0]) > 0){
