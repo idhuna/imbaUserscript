@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Click WaxPopup
 // @namespace    Auto Click WaxPopup
-// @version      1.2
+// @version      1.3
 // @match        https://all-access.wax.io/cloud-wallet/signing/*
 // @match        https://all-access.wax.io/cloud-wallet/login/*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
@@ -46,8 +46,8 @@
             setTimeout(_ => window.close(),2000);
         }
     },5000);
-    // Reload after 90 Sec
+    // Reload after 86 Sec
     setTimeout(_ => {
         document.querySelector("#root > div > section > div.page-inner-container > div > button").click();
-    },90*1000);
+    },86*1000);
 })();
