@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Click WaxPopup
 // @namespace    Auto Click WaxPopup
-// @version      1.5
+// @version      1.6
 // @match        https://all-access.wax.io/cloud-wallet/signing/*
 // @match        https://all-access.wax.io/cloud-wallet/login/*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
@@ -56,14 +56,15 @@
             console.log(event.origin);
             if(event.origin !== "https://www.google.com") return;
             console.log("Try again found reloading...");
-            setTimeout(_ => window.opener.postMessage(event.data,originDomain),2000);
-            setTimeout(_ => window.close(),10000);
+            setTimeout(_ => window.opener.postMessage(event.data,originDomain),60000);
+            // setTimeout(_ => window.close(),10000);
             node.textContent = "Reloading";
             clearInterval(oneSecInterval);
         }
     }, false);
     // Reload after 84 Sec
+    const denyBtnClick = () => {document.querySelector("#root > div > section > div.page-inner-container > div > button").click()}
     setTimeout(_ => {
-        document.querySelector("#root > div > section > div.page-inner-container > div > button").click();
+        denyBtnClick()
     },84*1000);
 })();
