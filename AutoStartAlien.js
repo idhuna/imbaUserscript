@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      1.8
+// @version      1.9
 // @match        https://www.awmine.com/awhelper*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
 // @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
@@ -109,13 +109,12 @@
     }
 
     // Start Config
-    const beforeLoginText = "ล็อกอินเอเลี่ยนเวิลด์";
     const loginSelecotor = "#LoginIdBlock > button";
     const statusSelector = "#StatusMining";
     const delayOfStatus = {'รอการนับถอยหลัง':30*60000,'กำลังดำเนินการขุด':8*60*1000}
     // End Config
     setTimeout(function(){
-        if(!!document.querySelector(loginSelecotor)?.textContent.includes(beforeLoginText)){
+        if(!!document.querySelector(loginSelecotor)?.textContent.includes('Login')){
             location.reload(true);
             console.log("Reloading ...")
         }
@@ -147,6 +146,18 @@
                 createReloadTimeout(30*60000);
             }
         });
+        // Get Delay
+        let minedelay = await getMineDelay(account);
+        console.log(newTime(), minedelay);
+        if(minedelay > 0) {
+            node.textContent = newTime(new Date().getTime() + minedelay);
+            node.style.color = 'yellow';
+        }
+        if(minedelay == 0){
+            await delay(10000);
+            node.style.color = 'red';
+        }
+        await delay(minedelay);
     };
 
     const observer = new MutationObserver(callback);
@@ -159,19 +170,4 @@
             window.location.reload();
         }
     }, false);
-
-    // Start Loop
-    while(true){
-        var minedelay = 1;
-        // Get Mine Delay
-        do {
-            minedelay = await getMineDelay(account);
-            if(minedelay > 0) {
-                node.textContent = newTime(new Date().getTime() + minedelay);
-                node.style.color = 'yellow';
-            }
-            if(minedelay == 0) node.style.color = 'red';
-            await delay(minedelay);
-        } while (minedelay !== 0)
-    }
 })();
