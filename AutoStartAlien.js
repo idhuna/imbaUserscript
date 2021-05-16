@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      1.7
+// @version      1.8
 // @match        https://www.awmine.com/awhelper*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
 // @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
@@ -109,12 +109,13 @@
     }
 
     // Start Config
+    const beforeLoginText = "ล็อกอินเอเลี่ยนเวิลด์";
     const loginSelecotor = "#LoginIdBlock > button";
     const statusSelector = "#StatusMining";
     const delayOfStatus = {'รอการนับถอยหลัง':30*60000,'กำลังดำเนินการขุด':8*60*1000}
     // End Config
     setTimeout(function(){
-        if(!!document.querySelector(loginSelecotor)?.textContent.includes('Login')){
+        if(!!document.querySelector(loginSelecotor)?.textContent.includes(beforeLoginText)){
             location.reload(true);
             console.log("Reloading ...")
         }
