@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      1.6
-// @match        https://auto-alien.com/*
+// @version      1.7
+// @match        https://www.awmine.com/awhelper*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
 // @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
 // @grant        none
@@ -27,24 +27,26 @@
         return win;
     };
 
-    // Auto Alien
-    setTimeout(_ => {
-        document.querySelector("#acc-name > a").click();
-    },2000);
-    let parentNode = [...document.querySelectorAll('span.text-white')].find(e => e.textContent.includes("Status mining")) || document.querySelector('span.text-white');
-    let node = document.createElement("span");
+    // Show Mine Delay
+    let node = document.createElement("div");
     node.style.color = 'yellow';
-    node.style.marginLeft = "1rem";
+    node.style.backgroundColor= 'rgba(0, 0, 0, 0.5)';
+    node.style.left = "1rem";
+    node.style.position = 'fixed';
+    node.style.zIndex = 999;
     node.textContent = 0;
-    setTimeout(function(){
-        if(!!document.querySelector("#acc-name > a")?.textContent.includes('Login')){
-            location.reload(true);
-            console.log("Reloading ...")
+    node.addEventListener('click',() => {
+        if(node.style.left == '') {
+            node.style.left = '1rem';
+            node.style.right = '';
+        }else{
+            node.style.right = '1rem';
+            node.style.left = '';
         }
-        parentNode.append(node);
-    },20000);
+    });
+    document.querySelector("body > *").append(node);
 
-    // Timeout
+    // Timeout Function
     var myTimeout;
     var myTimeout1;
     function createReloadTimeout(millis) {
@@ -71,44 +73,77 @@
         return new Date().toLocaleTimeString('th-TH')
     }
 
+    function waitForElement(selector, textContains=false, timeout=20000) {
+        const resEle = () => document.body.querySelector(selector);
+        return new Promise((resolve,reject) => {
+            if (textContains) {
+                if (resEle().textContent.includes(textContains)){
+                    return resolve(resEle())
+                }
+            }else if (resEle()) {
+                return resolve(resEle());
+            }
+
+            const _observer = new MutationObserver(mutations => {
+                if (textContains) {
+                    if (resEle().textContent.includes(textContains)){
+                        resolve(resEle());
+                        _observer.disconnect();
+                    }
+                }else if (resEle()) {
+                    resolve(resEle());
+                    _observer.disconnect();
+                }
+            });
+            if (timeout >= 0) {
+                setTimeout(_ => {
+                    _observer.disconnect();
+                    reject();
+                },timeout);
+            }
+            _observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+    // Start Config
+    const loginSelecotor = "#LoginIdBlock > button";
+    const statusSelector = "#StatusMining";
+    const delayOfStatus = {'รอการนับถอยหลัง':30*60000,'กำลังดำเนินการขุด':8*60*1000}
+    // End Config
+    setTimeout(function(){
+        if(!!document.querySelector(loginSelecotor)?.textContent.includes('Login')){
+            location.reload(true);
+            console.log("Reloading ...")
+        }
+    },20000);
+    // Start Login
+    let _ele = await waitForElement(loginSelecotor);
+    _ele.click();
+    do{
+        await delay(2000);
+    }while(!wax.userAccount.includes('.wam'))
+    let account = wax.userAccount;
+    console.log('Account :', wax.userAccount);
+    document.querySelector("#CPUStop").value = 98;
     // MutationObserver
-    const targetNode = document.querySelector("#show-status");
+    const targetNode = document.querySelector(statusSelector);
     var oldStatus = undefined;
     const config = { attributes: true, childList: true, subtree: true };
     const callback = async function(mutationsList, observer) {
-        let mineDelay
         mutationsList.forEach(function(mutation) {
             if(mutation.type == "childList"){
                 stopReloadTimeout();
-                document.querySelector("#show-status").scrollIntoView(false);
-                scrollBy(0,10);
-                let str = document.querySelector("#show-status").textContent;
-                if(oldStatus == str) location.reload();
-                if(str == "Check out Recaptcha. "){
-                    createReloadTimeout1(3*60000);
-                    return;
+                document.querySelector("#StatusMining").scrollIntoView();
+                let str = document.querySelector(statusSelector).textContent;
+                for (status in delayOfStatus){
+                    if (str == status){
+                        createReloadTimeout1(delayOfStatus[status]);
+                    }
                 }
                 createReloadTimeout(30*60000);
-                let re = /\d+/;
-                let found = str.match(re) || 0;
-                // Create Delay
-                if(found == 0) return;
-                let nextMineDelay = parseInt(found[0])
-                let found2 = str.match(/Next Mine in/);
-                if(found2){
-                    mineDelay = nextMineDelay;
-                }else{
-                    mineDelay = nextMineDelay * 1000;
-                }
-                if(mineDelay > 0){
-                    oldStatus = str;
-                    node.textContent = newTime(new Date().getTime() + mineDelay);
-                    setTimeout(_ => {
-                        // console.log('Start new observer');
-                        observer.observe(targetNode, config);
-                    },mineDelay+2000);
-                    observer.disconnect();
-                }
             }
         });
     };
@@ -123,4 +158,19 @@
             window.location.reload();
         }
     }, false);
+
+    // Start Loop
+    while(true){
+        var minedelay = 1;
+        // Get Mine Delay
+        do {
+            minedelay = await getMineDelay(account);
+            if(minedelay > 0) {
+                node.textContent = newTime(new Date().getTime() + minedelay);
+                node.style.color = 'yellow';
+            }
+            if(minedelay == 0) node.style.color = 'red';
+            await delay(minedelay);
+        } while (minedelay !== 0)
+    }
 })();
