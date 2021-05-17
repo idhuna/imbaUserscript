@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.1
+// @version      2.2
 // @match        https://www.awmine.com/awhelper*
 // @match        https://auto-alien.com*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
