@@ -31,7 +31,7 @@
 
     // Show Mine Delay
     let node = document.createElement("div");
-    node.style.color = 'yellow';
+    node.style.color = 'white';
     node.style.backgroundColor= 'rgba(0, 0, 0, 0.5)';
     node.style.left = "1rem";
     node.style.position = 'fixed';
@@ -141,13 +141,14 @@
             console.log(newTime(), minedelay);
             if(minedelay > 0) {
                 node.textContent = newTime(new Date().getTime() + minedelay);
-                node.style.color = 'yellow';
+                node.style.color = 'lawngreen';
             }
             if(minedelay == 0){
                 await delay(10000);
-                node.style.color = 'red';
+                node.style.color = 'lightyellow';
             }
             await delay(minedelay);
+            node.style.color = 'yellow';
         }catch(e) {
             console.log(e);
             node.style.color = 'red';
