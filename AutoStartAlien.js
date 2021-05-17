@@ -161,6 +161,7 @@
                 if(mutation.type == "childList"){
                     stopReloadTimeout();
                     document.querySelector("#StatusMining")?.scrollIntoView();
+                    if(parseFloat(document.querySelector("#Land_Commission")?.textContent) > 2) document.querySelector("#Land_Commission").scrollIntoView();
                     let str = document.querySelector(statusSelector).textContent;
                     for (status in delayOfStatus){
                         if (str == status){
