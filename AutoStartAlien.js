@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.2
+// @version      2.3
 // @match        https://www.awmine.com/awhelper*
 // @match        https://awmine.com/awhelper*
 // @match        https://auto-alien.com*
@@ -28,25 +28,6 @@
         tuud(7);
         return win;
     };
-
-    // Show Mine Delay
-    let node = document.createElement("div");
-    node.style.color = 'white';
-    node.style.backgroundColor= 'rgba(0, 0, 0, 0.5)';
-    node.style.left = "1rem";
-    node.style.position = 'fixed';
-    node.style.zIndex = 999;
-    node.textContent = 0;
-    node.addEventListener('click',() => {
-        if(node.style.left == '') {
-            node.style.left = '1rem';
-            node.style.right = '';
-        }else{
-            node.style.right = '1rem';
-            node.style.left = '';
-        }
-    });
-    document.querySelector("body > *").append(node);
 
     // Timeout Function
     var myTimeout;
@@ -109,6 +90,25 @@
             });
         });
     }
+
+    // Create Node & Show Mine Delay
+    let node = document.createElement("div");
+    node.style.color = 'white';
+    node.style.backgroundColor= 'rgba(0, 0, 0, 0.5)';
+    node.style.left = "1rem";
+    node.style.position = 'fixed';
+    node.style.zIndex = 999;
+    node.textContent = newTime();
+    node.addEventListener('click',() => {
+        if(node.style.left == '') {
+            node.style.left = '1rem';
+            node.style.right = '';
+        }else{
+            node.style.right = '1rem';
+            node.style.left = '';
+        }
+    });
+    document.querySelector("body > *").append(node);
 
     // Start Config
     const beforeLoginText = "ล็อกอินเอเลี่ยนเวิลด์";
