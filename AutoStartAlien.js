@@ -114,7 +114,7 @@
     const beforeLoginText = "ล็อกอินเอเลี่ยนเวิลด์";
     const loginSelecotor = "#LoginIdBlock > button";
     const statusSelector = "#StatusMining";
-    const delayOfStatus = {'รอการนับถอยหลัง':30*60000,'กำลังดำเนินการขุด':12*60*1000}
+    const delayOfStatus = {'รอการนับถอยหลัง':30*60000,'กำลังดำเนินการขุด':12*60*1000,'เตรียมการขุด':2*60*1000}
     // End Config
     setTimeout(function(){
         if(!!document.querySelector(loginSelecotor)?.textContent.includes(beforeLoginText)){
