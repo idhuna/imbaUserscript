@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.0
+// @version      2.1
 // @match        https://www.awmine.com/awhelper*
 // @match        https://auto-alien.com*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
@@ -172,15 +172,15 @@
             });
             await justDelay();
         };
+
+        const observer = new MutationObserver(callback);
+        observer.observe(targetNode, config);
     }else{
         while(true){
             await justDelay();
             await delay(5000);
         }
     }
-
-    const observer = new MutationObserver(callback);
-    observer.observe(targetNode, config);
 
     window.addEventListener("message", (event) => {
         if(event.origin !== "https://all-access.wax.io") return;
