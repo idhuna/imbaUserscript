@@ -3,6 +3,7 @@
 // @namespace    Auto Alien
 // @version      1.9
 // @match        https://www.awmine.com/awhelper*
+// @match        https://auto-alien.com*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
 // @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoStartAlien.js
 // @grant        none
@@ -98,7 +99,7 @@
             if (timeout >= 0) {
                 setTimeout(_ => {
                     _observer.disconnect();
-                    reject();
+                    resolve();
                 },timeout);
             }
             _observer.observe(document.body, {
@@ -122,44 +123,61 @@
     },20000);
     // Start Login
     let _ele = await waitForElement(loginSelecotor);
-    _ele.click();
+    if(_ele){
+        _ele.click();
+        document.querySelector("#CPUStop").value = 98;
+    }
     do{
         await delay(2000);
     }while(!wax.userAccount.includes('.wam'))
     let account = wax.userAccount;
     console.log('Account :', wax.userAccount);
-    document.querySelector("#CPUStop").value = 98;
-    // MutationObserver
-    const targetNode = document.querySelector(statusSelector);
-    var oldStatus = undefined;
-    const config = { attributes: true, childList: true, subtree: true };
-    const callback = async function(mutationsList, observer) {
-        mutationsList.forEach(function(mutation) {
-            if(mutation.type == "childList"){
-                stopReloadTimeout();
-                document.querySelector("#StatusMining").scrollIntoView();
-                let str = document.querySelector(statusSelector).textContent;
-                for (status in delayOfStatus){
-                    if (str == status){
-                        createReloadTimeout1(delayOfStatus[status]);
-                    }
-                }
-                createReloadTimeout(30*60000);
+
+    // Get Delay
+    const justDelay = async () => {
+        try {
+            let minedelay = await getMineDelay(account);
+            console.log(newTime(), minedelay);
+            if(minedelay > 0) {
+                node.textContent = newTime(new Date().getTime() + minedelay);
+                node.style.color = 'yellow';
             }
-        });
-        // Get Delay
-        let minedelay = await getMineDelay(account);
-        console.log(newTime(), minedelay);
-        if(minedelay > 0) {
-            node.textContent = newTime(new Date().getTime() + minedelay);
-            node.style.color = 'yellow';
+            if(minedelay == 0){
+                await delay(10000);
+                node.style.color = 'red';
+            }
+            await delay(minedelay);
+        }catch(e) {
+            console.log(e);
         }
-        if(minedelay == 0){
-            await delay(10000);
-            node.style.color = 'red';
+    }
+    if(_ele){
+        // MutationObserver
+        const targetNode = document.querySelector(statusSelector);
+        var oldStatus = undefined;
+        const config = { attributes: true, childList: true, subtree: true };
+        const callback = async function(mutationsList, observer) {
+            mutationsList.forEach(function(mutation) {
+                if(mutation.type == "childList"){
+                    stopReloadTimeout();
+                    document.querySelector("#StatusMining")?.scrollIntoView();
+                    let str = document.querySelector(statusSelector).textContent;
+                    for (status in delayOfStatus){
+                        if (str == status){
+                            createReloadTimeout1(delayOfStatus[status]);
+                        }
+                    }
+                    createReloadTimeout(30*60000);
+                }
+            });
+            await justDelay();
+        };
+    }else{
+        while(true){
+            await justDelay();
+            await delay(5000);
         }
-        await delay(minedelay);
-    };
+    }
 
     const observer = new MutationObserver(callback);
     observer.observe(targetNode, config);
