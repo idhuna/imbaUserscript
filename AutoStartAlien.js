@@ -149,6 +149,7 @@
             await delay(minedelay);
         }catch(e) {
             console.log(e);
+            node.style.color = 'red';
         }
     }
     if(_ele){
