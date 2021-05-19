@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.3
+// @version      2.4
 // @match        https://www.awmine.com/awhelper*
 // @match        https://awmine.com/awhelper*
 // @match        https://auto-alien.com*
@@ -114,7 +114,7 @@
     const beforeLoginText = "ล็อกอินเอเลี่ยนเวิลด์";
     const loginSelecotor = "#LoginIdBlock > button";
     const statusSelector = "#StatusMining";
-    const delayOfStatus = {'รอการนับถอยหลัง':30*60000,'กำลังดำเนินการขุด':12*60*1000,'เตรียมการขุด':2*60*1000}
+    const delayOfStatus = {'รอการนับถอยหลัง':40*60000,'กำลังดำเนินการขุด':12*60*1000,'เตรียมการขุด':2*60*1000}
     // End Config
     setTimeout(function(){
         if(!!document.querySelector(loginSelecotor)?.textContent.includes(beforeLoginText)){
@@ -171,7 +171,7 @@
                             createReloadTimeout1(delayOfStatus[status]);
                         }
                     }
-                    createReloadTimeout(30*60000);
+                    createReloadTimeout(40*60000);
                 }
             });
             await justDelay();
