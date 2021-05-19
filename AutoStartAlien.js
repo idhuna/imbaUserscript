@@ -126,7 +126,7 @@
     let _ele = await waitForElement(loginSelecotor);
     if(_ele){
         _ele.click();
-        document.querySelector("#CPUStop").value = 98;
+        document.querySelector("#CPUStop").value = 95;
     }
     do{
         await delay(2000);
