@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.4
+// @version      2.5
 // @match        https://www.awmine.com/awhelper*
 // @match        https://awmine.com/awhelper*
 // @match        https://auto-alien.com*
@@ -138,7 +138,6 @@
     const justDelay = async () => {
         try {
             let minedelay = await getMineDelay(account);
-            console.log(newTime(), minedelay);
             if(minedelay > 0) {
                 node.textContent = newTime(new Date().getTime() + minedelay);
                 node.style.color = 'lawngreen';
