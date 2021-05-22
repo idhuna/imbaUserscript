@@ -129,7 +129,10 @@
         document.querySelector("#CPUStop").value = 95;
     }
     do{
-        await delay(2000);
+        await delay(500);
+    }while(!wax);
+    do{
+        await delay(500);
     }while(!wax.userAccount?.includes('.wam'))
     let account = wax.userAccount;
     if(!account){
