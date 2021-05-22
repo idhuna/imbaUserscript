@@ -130,9 +130,13 @@
     }
     do{
         await delay(2000);
-    }while(!wax.userAccount.includes('.wam'))
+    }}while(!wax.userAccount?.includes('.wam'))
     let account = wax.userAccount;
-    console.log('Account :', wax.userAccount);
+    if(!account){
+        await delay(10000);
+        account = wax.userAccount;
+    }
+    console.log('Account :', account);
 
     // Get Delay
     const justDelay = async () => {
