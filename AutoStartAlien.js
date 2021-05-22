@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.6
+// @version      2.7
 // @match        https://www.awmine.com/awhelper*
 // @match        https://awmine.com/awhelper*
 // @match        https://auto-alien.com*
@@ -172,7 +172,7 @@
                     document.querySelector("#StatusMining")?.scrollIntoView();
                     if(parseFloat(document.querySelector("#Land_Commission")?.textContent) > 2) document.querySelector("#Land_Commission").scrollIntoView();
                     let str = document.querySelector(statusSelector).textContent;
-                    for (status in delayOfStatus){
+                    for (var status in delayOfStatus){
                         if (str == status){
                             createReloadTimeout1(delayOfStatus[status]);
                         }
