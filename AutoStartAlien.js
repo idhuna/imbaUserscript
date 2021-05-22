@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.5
+// @version      2.6
 // @match        https://www.awmine.com/awhelper*
 // @match        https://awmine.com/awhelper*
 // @match        https://auto-alien.com*
@@ -130,7 +130,7 @@
     }
     do{
         await delay(2000);
-    }}while(!wax.userAccount?.includes('.wam'))
+    }while(!wax.userAccount?.includes('.wam'))
     let account = wax.userAccount;
     if(!account){
         await delay(10000);
