@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Auto Click WaxPopup
 // @namespace    Auto Click WaxPopup
-// @version      1.6
+// @version      1.7
 // @match        https://all-access.wax.io/cloud-wallet/signing/*
 // @match        https://all-access.wax.io/cloud-wallet/login/*
+// @match        https://all-access.wax.io/*
 // @updateURL    https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
 // @downloadURL  https://raw.githubusercontent.com/idhuna/imbaUserscript/master/AutoClickWaxPopup.js
 // @grant        none
@@ -30,12 +31,16 @@
     // Auto Accept Signing for WAX.io
     let counter = 200;
     const dynamicInterval = () => {
-        if(document.querySelector("div.react-ripples > button")?.disabled == false){
-            document.querySelector("div.react-ripples > button").click();
-            counter = 5000;
+        let button = document.querySelector("div.react-ripples > button");
+        if(button?.disabled == false){
+            if(button.textContent == 'Approve'){
+                button.click();
+                counter = 5000;
+            }
         }
-        if(document.querySelector("input[type='checkbox']")?.checked == false){
-            document.querySelector("input[type='checkbox']").click();
+        let checkBox = document.querySelector("input[type='checkbox']");
+        if(checkBox?.checked == false){
+            checkBox.click();
         }
         setTimeout(dynamicInterval, counter);
     }
