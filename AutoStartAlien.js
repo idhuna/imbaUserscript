@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.7
+// @version      2.8
 // @match        https://www.awmine.com/awhelper*
 // @match        https://awmine.com/awhelper*
 // @match        https://auto-alien.com*
@@ -169,7 +169,7 @@
             mutationsList.forEach(function(mutation) {
                 if(mutation.type == "childList"){
                     stopReloadTimeout();
-                    document.querySelector("#StatusMining")?.scrollIntoView();
+                    document.querySelector("#MineBtn")?.scrollIntoView();
                     if(parseFloat(document.querySelector("#Land_Commission")?.textContent) > 2) document.querySelector("#Land_Commission").scrollIntoView();
                     let str = document.querySelector(statusSelector).textContent;
                     for (var status in delayOfStatus){
