@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.8
+// @version      2.9
 // @match        https://www.awmine.com/awhelper*
 // @match        https://awmine.com/awhelper*
 // @match        https://auto-alien.com*
@@ -16,7 +16,7 @@
     const delay = ms => new Promise(resolve => setTimeout(_ => resolve(), ms));
     const tuud = (number) => {
         var context = new AudioContext();
-        let audio = new Audio('https://www.soundjay.com/button/button-'+JSON.parse(number)+'.wav');
+        let audio = new Audio('https://www.soundjay.com/buttons/button-'+JSON.parse(number)+'.wav');
         context.resume().then(() => {
             audio.play();
         });
