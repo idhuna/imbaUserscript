@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Alien
 // @namespace    Auto Alien
-// @version      2.9
+// @version      3.0
 // @match        https://www.awmine.com/awhelper*
 // @match        https://awmine.com/awhelper*
 // @match        https://auto-alien.com*
@@ -127,6 +127,7 @@
     if(_ele){
         _ele.click();
         document.querySelector("#CPUStop").value = 95;
+        document.querySelector("#AutoMineFunction").click();
     }
     do{
         await delay(500);
