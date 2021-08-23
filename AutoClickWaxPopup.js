@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Click WaxPopup
 // @namespace    Auto Click WaxPopup
-// @version      1.7
+// @version      1.8
 // @match        https://all-access.wax.io/cloud-wallet/signing/*
 // @match        https://all-access.wax.io/cloud-wallet/login/*
 // @match        https://all-access.wax.io/*
@@ -53,6 +53,14 @@
             setTimeout(_ => window.close(),2000);
         }
     },5000);
+    // Auto Sign In
+    setTimeout(_ => {
+        if(document.querySelector("input").value){
+            document.querySelector("#root > div > div > div > div:nth-child(5) > div > div > div > div.flex-column.flex-center.mt-2 > button").click();
+        }else{
+            document.querySelector("#google-social-btn").click();
+        }
+    },20000);
     // postMessage to opener
     let originDomain = "https://auto-alien.com";
     window.addEventListener("message", (event) => {
